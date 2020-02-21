@@ -2,6 +2,11 @@
 variable "lowerlevel_storage_account_name" {}
 variable "lowerlevel_container_name" {}
 variable "lowerlevel_resource_group_name" {}
+variable "lowerlevel_key" {}
+variable "subscription_id" {}
+variable "dev_subscription_id" {}
+variable "prod_subscription_id" {}
+variable "hub_subscription_id" {}
 
 # # Resource Group config
 # variable "rg_config" {
