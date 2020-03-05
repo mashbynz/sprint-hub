@@ -18,6 +18,24 @@ data "terraform_remote_state" "landingzone_hub" {
   }
 }
 
+module "level0" {
+  source        = "./dev/tf-mod-levelzero/"
+
+  fw_rg_enabled = var.fw_rg_config.rg_enabled
+  fw_rg_config  = var.fw_rg_config
+
+  la_rg_enabled = var.la_rg_config.rg_enabled
+  la_rg_config  = var.la_rg_config
+}
+
+module "level1" {
+  source        = "./dev/tf-mod-levelone/"
+
+  fw_vnet_enabled = var.fw_vnet_config.vnet_enabled
+  fw_vnet_config  = var.fw_vnet_config
+}
+
+
 # module "hub" {
 #   source     = "./template/"
 #   rg_enabled = var.rg_config.rg_enabled
