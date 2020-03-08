@@ -4,8 +4,9 @@ variable "lowerlevel_container_name" {}
 variable "lowerlevel_resource_group_name" {}
 variable "lowerlevel_key" {}
 variable "subscription_id" {}
-# variable "fw_rg_enabled" {}
-# variable "la_rg_enabled" {}
+
+variable "level1_network_location" {}
+variable "level1_network_resource_group_name" {}
 
 # # Resource Group config
 variable "fw_rg_config" {

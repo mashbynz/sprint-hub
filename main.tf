@@ -33,6 +33,9 @@ module "level1" {
 
   fw_vnet_enabled = var.fw_vnet_config.vnet_enabled
   fw_vnet_config  = var.fw_vnet_config
+  
+  level1_network_location = module.level0.network_location
+  level1_network_resource_group_name = module.level0.network_resource_group_name
 }
 
 
