@@ -18,36 +18,26 @@ data "terraform_remote_state" "landingzone_hub" {
   }
 }
 
-module "level0" {
-  source        = "./dev/tf-mod-levelzero/"
+# module "governance" {
+#   source        = "../tf-mod-governance/"
 
-  fw_rg_enabled = var.fw_rg_config.rg_enabled
-  fw_rg_config  = var.fw_rg_config
-
-  la_rg_enabled = var.la_rg_config.rg_enabled
-  la_rg_config  = var.la_rg_config
-}
-
-module "level1" {
-  source        = "./dev/tf-mod-levelone/"
-
-  fw_vnet_enabled = var.fw_vnet_config.vnet_enabled
-  fw_vnet_config  = var.fw_vnet_config
-  
-  level1_network_location = module.level0.network_location
-  level1_network_resource_group_name = module.level0.network_resource_group_name
-}
-
-
-# module "hub" {
-#   source     = "./template/"
-#   rg_enabled = var.rg_config.rg_enabled
-#   rg_config  = var.rg_config
-
-#   vnet_enabled = var.vnet_config.vnet_enabled
-#   vnet_config  = var.vnet_config
-
-#   rules_enabled = var.nsg_config.rules_enabled
-#   nsg_config    = var.nsg_config
 # }
 
+module "level0" {
+  source = "../tf-mod-levelzero/"
+
+  fw_rg_enabled  = var.fw_rg_config.rg_enabled
+  fw_rg_config   = var.fw_rg_config
+  fw_vnet_config = var.fw_vnet_config
+  fw_subnets     = var.fw_subnets
+}
+
+# module "level1" {
+#   source        = "../tf-mod-levelone/"
+
+# }
+
+# module "level2" {
+#   source        = "../tf-mod-leveltwo/"
+
+# }

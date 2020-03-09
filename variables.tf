@@ -5,9 +5,6 @@ variable "lowerlevel_resource_group_name" {}
 variable "lowerlevel_key" {}
 variable "subscription_id" {}
 
-variable "level1_network_location" {}
-variable "level1_network_resource_group_name" {}
-
 # # Resource Group config
 variable "fw_rg_config" {
   type = object({
@@ -15,8 +12,8 @@ variable "fw_rg_config" {
     rg_enabled = bool
     rg_name    = map(string)
     tags = object({
-      ae  = map(string)
-      ase = map(string)
+      region1 = map(string)
+      region2 = map(string)
     })
   })
 
@@ -25,120 +22,69 @@ variable "fw_rg_config" {
     rg_enabled = true
     rg_name    = {}
     tags = {
-      ae  = {}
-      ase = {}
+      region1 = {}
+      region2 = {}
     }
   }
   description = "Firewall Resource Group configuration"
 }
 
-variable "la_rg_config" {
-  type = object({
-    location   = map(string)
-    rg_enabled = bool
-    rg_name    = map(string)
-    tags = object({
-      ae  = map(string)
-      ase = map(string)
-    })
-  })
-
-  default = {
-    location   = {}
-    rg_enabled = true
-    rg_name    = {}
-    tags = {
-      ae  = {}
-      ase = {}
-    }
-  }
-  description = "Log Analytics Resource Group configuration"
-}
-
 variable "fw_vnet_config" {
   type = object({
-    location     = map(string)
-    vnet_enabled = bool
+    vnet_name = map(string)
     address_space = object({
-      ae  = list(string)
-      ase = list(string)
+      region1 = list(string)
+      region2 = list(string)
     })
-    vnet_name     = map(string)
-    subnet_name   = map(string)
-    subnet_prefix = map(string)
+    base_cidr_block = map(string)
     dns_servers = object({
-      ae  = list(string)
-      ase = list(string)
+      region1 = list(string)
+      region2 = list(string)
     })
     tags = object({
-      ae  = map(string)
-      ase = map(string)
+      region1 = map(string)
+      region2 = map(string)
     })
   })
 
   default = {
-    location     = {}
-    vnet_enabled = true
+    vnet_name = {}
     address_space = {
-      ae  = []
-      ase = []
+      region1 = []
+      region2 = []
     }
-    vnet_name     = {}
-    subnet_name   = {}
-    subnet_prefix = {}
+    base_cidr_block = {}
     dns_servers = {
-      ae  = []
-      ase = []
+      region1 = []
+      region2 = []
     }
     tags = {
-      ae  = {}
-      ase = {}
+      region1 = {}
+      region2 = {}
     }
   }
   description = "Firewall VNET configuration"
 }
 
-# # Network config
-# variable "vnet_config" {
-#   type = object({
-#     location     = map(string)
-#     vnet_enabled = bool
-#     address_space = object({
-#       ae  = list(string)
-#       ase = list(string)
-#     })
-#     vnet_name       = map(string)
-#     subnet_name     = map(string)
-#     subnet_prefix   = map(string)
-#     rt_name         = map(string)
-#     route_name      = map(string)
-#     rt_prefix       = map(string)
-#     rt_nexthop_type = map(string)
-#     rt_nexthop_ip   = map(string)
-#     nsg_name        = map(string)
-#     tags            = map(string)
-#   })
-
-#   default = {
-#     location     = {}
-#     vnet_enabled = true
-#     address_space = {
-#       ae  = []
-#       ase = []
-#     }
-#     vnet_name       = {}
-#     subnet_name     = {}
-#     subnet_prefix   = {}
-#     rt_name         = {}
-#     route_name      = {}
-#     rt_prefix       = {}
-#     rt_nexthop_type = {}
-#     rt_nexthop_ip   = {}
-#     nsg_name        = {}
-#     tags            = {}
-#   }
-#   description = "Default VNET configuration"
-# }
+variable "fw_subnets" {
+  default = [
+    {
+      name    = "a"
+      newbits = 4
+      number  = 1
+    },
+    {
+      name    = "b"
+      newbits = 4
+      number  = 2
+    },
+    {
+      name    = "c"
+      newbits = 4
+      number  = 3
+    },
+  ]
+}
 
 # # NSG Rule Config
 # variable "nsg_config" {
