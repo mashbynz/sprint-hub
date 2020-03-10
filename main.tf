@@ -26,10 +26,17 @@ data "terraform_remote_state" "landingzone_hub" {
 module "level0" {
   source = "../tf-mod-levelzero/"
 
-  fw_rg_enabled  = var.fw_rg_config.rg_enabled
-  fw_rg_config   = var.fw_rg_config
-  fw_vnet_config = var.fw_vnet_config
-  fw_subnets     = var.fw_subnets
+  fw_rg_enabled        = var.fw_rg_config.rg_enabled
+  fw_rg_config         = var.fw_rg_config
+  fw_vnet_config       = var.fw_vnet_config
+  fw_subnets           = var.fw_subnets
+  vnetgw_config        = var.vnetgw_config
+  nsg_config           = var.nsg_config
+  UntrustSubnet_rules  = var.UntrustSubnet_rules
+  TrustedSubnet_rules  = var.TrustedSubnet_rules
+  InternalSubnet_rules = var.InternalSubnet_rules
+  rvdb-sc-ul_rules     = var.rvdb-sc-ul_rules
+  rvdb-sc-dl_rules     = var.rvdb-sc-dl_rules
 }
 
 # module "level1" {

@@ -5,7 +5,7 @@ variable "lowerlevel_resource_group_name" {}
 variable "lowerlevel_key" {}
 variable "subscription_id" {}
 
-# # Resource Group config
+# Network Resource Groups
 variable "fw_rg_config" {
   type = object({
     location   = map(string)
@@ -29,6 +29,7 @@ variable "fw_rg_config" {
   description = "Firewall Resource Group configuration"
 }
 
+# Hub VNet
 variable "fw_vnet_config" {
   type = object({
     vnet_name = map(string)
@@ -40,10 +41,6 @@ variable "fw_vnet_config" {
     dns_servers = object({
       region1 = list(string)
       region2 = list(string)
-    })
-    tags = object({
-      region1 = map(string)
-      region2 = map(string)
     })
   })
 
@@ -58,10 +55,6 @@ variable "fw_vnet_config" {
       region1 = []
       region2 = []
     }
-    tags = {
-      region1 = {}
-      region2 = {}
-    }
   }
   description = "Firewall VNET configuration"
 }
@@ -69,49 +62,155 @@ variable "fw_vnet_config" {
 variable "fw_subnets" {
   default = [
     {
-      name    = "a"
-      newbits = 4
-      number  = 1
+      name    = ""
+      newbits = 0
+      number  = 0
     },
     {
-      name    = "b"
-      newbits = 4
-      number  = 2
+      name    = ""
+      newbits = 0
+      number  = 0
     },
     {
-      name    = "c"
-      newbits = 4
-      number  = 3
+      name    = ""
+      newbits = 0
+      number  = 0
     },
   ]
 }
 
-# # NSG Rule Config
-# variable "nsg_config" {
-#   type = object({
-#     rules_enabled           = bool
-#     rule_name               = map(string)
-#     rule_priority           = map(number)
-#     rule_direction          = map(string)
-#     rule_access             = map(string)
-#     rule_protocol           = map(string)
-#     rule_source_range       = map(string)
-#     rule_destination_range  = map(string)
-#     rule_source_prefix      = map(string)
-#     rule_destination_prefix = map(string)
-#   })
+# Firewall
 
-#   default = {
-#     rules_enabled           = true
-#     rule_name               = {}
-#     rule_priority           = {}
-#     rule_direction          = {}
-#     rule_access             = {}
-#     rule_protocol           = {}
-#     rule_source_range       = {}
-#     rule_destination_range  = {}
-#     rule_source_prefix      = {}
-#     rule_destination_prefix = {}
-#   }
-#   description = "Default NSG Rule configuration"
-# }
+
+# VPN Gateway
+variable "vnetgw_config" {
+  type = object({
+    public_ip_name = map(string)
+    public_ip_alocation_method = map(string)
+    gw_subnet_name = map(string)
+    gw_subnet_newbits = map(number)
+    gw_subnet_number = map(number)
+    gw_name = map(string)
+    gw_type = map(string)
+    gw_vpn_type = map(string)
+    gw_active_active = map(string)
+    gw_enable_bgp = map(string)
+    gw_sku = map(string)
+    gw_ip_configuration_name = map(string)
+    gw_ip_configuration_private_ip_allocation_method = map(string)
+    gw_ip_configuration_subnet_id = map(string)
+  })
+
+  default = {
+    public_ip_name = {}
+    public_ip_alocation_method = {}
+    gw_subnet_name = {}
+    gw_subnet_newbits = {}
+    gw_subnet_number = {}
+    gw_name = {}
+    gw_type = {}
+    gw_vpn_type = {}
+    gw_active_active = {}
+    gw_enable_bgp = {}
+    gw_sku = {}
+    gw_ip_configuration_name = {}
+    gw_ip_configuration_private_ip_allocation_method = {}
+    gw_ip_configuration_subnet_id = {}
+  }
+  description = "VPN Gateway configuration"
+}
+
+# Zscaler
+
+
+
+# NSGs
+variable "nsg_config" {
+  type = object({
+    nsg_name = list(string)
+  })
+
+  default = {
+    nsg_name = []
+  }
+}
+
+variable "UntrustSubnet_rules" {
+  default = [
+    {
+    name                       = ""
+    priority                   = 100
+    direction                  = ""
+    access                     = ""
+    protocol                   = ""
+    source_port_range          = ""
+    destination_port_range     = ""
+    source_address_prefix      = ""
+    destination_address_prefix = ""
+    },
+  ]
+}
+
+variable "TrustedSubnet_rules" {
+  default = [
+    {
+    name                       = ""
+    priority                   = 100
+    direction                  = ""
+    access                     = ""
+    protocol                   = ""
+    source_port_range          = ""
+    destination_port_range     = ""
+    source_address_prefix      = ""
+    destination_address_prefix = ""
+    },
+  ]
+}
+
+variable "InternalSubnet_rules" {
+  default = [
+    {
+    name                       = ""
+    priority                   = 100
+    direction                  = ""
+    access                     = ""
+    protocol                   = ""
+    source_port_range          = ""
+    destination_port_range     = ""
+    source_address_prefix      = ""
+    destination_address_prefix = ""
+    },
+  ]
+}
+
+variable "rvdb-sc-ul_rules" {
+  default = [
+    {
+    name                       = ""
+    priority                   = 100
+    direction                  = ""
+    access                     = ""
+    protocol                   = ""
+    source_port_range          = ""
+    destination_port_range     = ""
+    source_address_prefix      = ""
+    destination_address_prefix = ""
+    },
+  ]
+}
+
+variable "rvdb-sc-dl_rules" {
+  default = [
+    {
+    name                       = ""
+    priority                   = 100
+    direction                  = ""
+    access                     = ""
+    protocol                   = ""
+    source_port_range          = ""
+    destination_port_range     = ""
+    source_address_prefix      = ""
+    destination_address_prefix = ""
+    },
+  ]
+}
