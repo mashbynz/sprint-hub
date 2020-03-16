@@ -1,35 +1,29 @@
-# output "firewall_location" {
-#   value = azurerm_resource_group.firewall.*.location
-# }
+output "level0_resource_groups" {
+  description = "Returns the full set of resource group objects created"
 
-# output "firewall_rg_name" {
-#   value = azurerm_resource_group.firewall.*.name
-# }
+  value = module.level0_region1.resource_groups
+}
 
-# output "log_analytics_location" {
-#   value = azurerm_resource_group.log_analytics.*.location
-# }
+output "level0_virtual_networks" {
+  description = "Returns the full set of virtual networks objects created"
 
-# output "firewall_location" {
-#   value = module.level0.level0_firewall_location
-# }
+  value = module.level0_region1.virtual_networks
+}
 
-# output "firewall_rg_name" {
-#   value = module.level0.level0_firewall_rg_name
-# }
+output "level0_subnets" {
+  description = "Returns the full set of subnets created"
 
-# output "log_analytics_location" {
-#   value = module.level0.level0_log_analytics_location
-# }
+  value = module.level0_region1.subnets
+}
 
-# output "firewall_id" {
-#   value = module.level1.level1_firewall_id
-# }
+output "level0_NSGs" {
+  description = "Returns the full set of NSGs created"
 
-# output "la_rg_enabled" {
-#   value = module.level0.level0_la_rg_enabled
-# }
+  value = module.level0_region1.nsgs
+}
 
-# output "fw_rg_enabled" {
-#   value = module.level0.level0_fw_rg_enabled
-# }
+output "level0_rts" {
+  description = "Returns the full set of Route Tables created"
+
+  value = module.level0_region1.route_table_obj
+}
