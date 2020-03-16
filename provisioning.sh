@@ -21,5 +21,3 @@
 # echo "storage_account_name: $STORAGE_ACCOUNT_NAME" \
 # echo "container_name: $CONTAINER_NAME" \
 # echo "access_key: $ACCOUNT_KEY"
-
-# export ARM_ACCESS_KEY=$(az storage account keys list --resource-group ac1prodtfstate-rg --account-name ac1prodtfstatesa16493 --query [0].value -o tsv)

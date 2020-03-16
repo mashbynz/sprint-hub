@@ -46,29 +46,3 @@ module "level1_region1" {
   level0_subnet = module.level0_region1.subnets
   level0_rt     = module.level0_region1.route_table_obj
 }
-
-# module "level0" {
-#   source = "../tf-mod-levelzero/"
-
-#   fw_rg_enabled        = var.fw_rg_config.rg_enabled
-#   fw_rg_config         = var.fw_rg_config
-#   fw_vnet_config       = var.fw_vnet_config
-#   fw_subnets           = var.fw_subnets
-#   vnetgw_config        = var.vnetgw_config
-#   nsg_config           = var.nsg_config
-#   UntrustSubnet_rules  = var.UntrustSubnet_rules
-#   TrustedSubnet_rules  = var.TrustedSubnet_rules
-#   InternalSubnet_rules = var.InternalSubnet_rules
-#   rvdb-sc-ul_rules     = var.rvdb-sc-ul_rules
-#   rvdb-sc-dl_rules     = var.rvdb-sc-dl_rules
-# }
-
-# module "level1" {
-#   source        = "../tf-mod-levelone/"
-
-# }
-
-# module "level2" {
-#   source        = "../tf-mod-leveltwo/"
-
-# }
