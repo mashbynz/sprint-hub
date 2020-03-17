@@ -32,10 +32,6 @@ variable "nsg_suffix" {
   type        = string
 }
 
-# variable "route_tables" {
-#   description = "(Required) Map of the Route Tables to create"
-# }
-
 variable "rt_suffix" {
   description = "(Optional) You can use a suffix to add to the list of Route Tables you want to create"
   type        = string
@@ -49,3 +45,12 @@ variable "log_analytics_suffix" {
   description = "(Optional) The suffix added to the Log Analytics workspace name to ensure it is globally unique"
   type        = string
 }
+
+variable "diagnostics_object" {
+  description = "(Required) configuration object describing the Diagnostics configuration"
+}
+
+# variable "enable_event_hub" {
+#   description = "(Required) Set to true to create an event hub for Diagnostics Logging"
+#   type = bool
+# }

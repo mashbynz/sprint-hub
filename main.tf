@@ -23,6 +23,12 @@ module "governance" {
 
   log_analytics_object = var.log_analytics_object
   log_analytics_suffix = var.log_analytics_suffix
+
+  diagnostics_object = var.diagnostics_object
+  networking_object  = var.networking_object
+
+  level0_NSG      = module.level0_region1.nsgs
+  level0_networks = module.level0_region1.virtual_networks
 }
 
 module "level0_region1" {
@@ -33,10 +39,10 @@ module "level0_region1" {
   nsg_suffix  = var.nsg_suffix
   rt_suffix   = var.rt_suffix
 
-  networking_object = var.networking_object
-  resource_groups   = var.resource_groups
-
-  tags = var.tags
+  networking_object    = var.networking_object
+  resource_groups      = var.resource_groups
+  diagnostics_object   = var.diagnostics_object
+  log_analytics_object = var.log_analytics_object
 }
 
 module "level1_region1" {
