@@ -4,6 +4,9 @@ variable "lowerlevel_container_name" {}
 variable "lowerlevel_resource_group_name" {}
 variable "lowerlevel_key" {}
 variable "subscription_id" {}
+# variable "client_id" {}    
+# variable "client_secret" {}
+# variable "tenant_id" {}    
 
 variable "resource_groups" {
   description = "(Required) Map of the resource groups to create"
