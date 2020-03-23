@@ -4,213 +4,56 @@ variable "lowerlevel_container_name" {}
 variable "lowerlevel_resource_group_name" {}
 variable "lowerlevel_key" {}
 variable "subscription_id" {}
+# variable "client_id" {}    
+# variable "client_secret" {}
+# variable "tenant_id" {}    
 
-# Network Resource Groups
-variable "fw_rg_config" {
-  type = object({
-    location   = map(string)
-    rg_enabled = bool
-    rg_name    = map(string)
-    tags = object({
-      region1 = map(string)
-      region2 = map(string)
-    })
-  })
-
-  default = {
-    location   = {}
-    rg_enabled = true
-    rg_name    = {}
-    tags = {
-      region1 = {}
-      region2 = {}
-    }
-  }
-  description = "Firewall Resource Group configuration"
+variable "resource_groups" {
+  description = "(Required) Map of the resource groups to create"
 }
 
-# Hub VNet
-variable "fw_vnet_config" {
-  type = object({
-    vnet_name = map(string)
-    address_space = object({
-      region1 = list(string)
-      region2 = list(string)
-    })
-    base_cidr_block = map(string)
-    dns_servers = object({
-      region1 = list(string)
-      region2 = list(string)
-    })
-  })
-
-  default = {
-    vnet_name = {}
-    address_space = {
-      region1 = []
-      region2 = []
-    }
-    base_cidr_block = {}
-    dns_servers = {
-      region1 = []
-      region2 = []
-    }
-  }
-  description = "Firewall VNET configuration"
+variable "rg_suffix" {
+  description = "(Optional) You can use a suffix to add to the list of resource groups you want to create"
 }
 
-variable "fw_subnets" {
-  default = [
-    {
-      name    = ""
-      newbits = 0
-      number  = 0
-    },
-    {
-      name    = ""
-      newbits = 0
-      number  = 0
-    },
-    {
-      name    = ""
-      newbits = 0
-      number  = 0
-    },
-  ]
+variable "tags" {
+  default     = ""
+  description = "(Required) tags for the deployment"
 }
 
-# Firewall
-
-
-# VPN Gateway
-variable "vnetgw_config" {
-  type = object({
-    public_ip_name = map(string)
-    public_ip_alocation_method = map(string)
-    gw_subnet_name = map(string)
-    gw_subnet_newbits = map(number)
-    gw_subnet_number = map(number)
-    gw_name = map(string)
-    gw_type = map(string)
-    gw_vpn_type = map(string)
-    gw_active_active = map(string)
-    gw_enable_bgp = map(string)
-    gw_sku = map(string)
-    gw_ip_configuration_name = map(string)
-    gw_ip_configuration_private_ip_allocation_method = map(string)
-    gw_ip_configuration_subnet_id = map(string)
-  })
-
-  default = {
-    public_ip_name = {}
-    public_ip_alocation_method = {}
-    gw_subnet_name = {}
-    gw_subnet_newbits = {}
-    gw_subnet_number = {}
-    gw_name = {}
-    gw_type = {}
-    gw_vpn_type = {}
-    gw_active_active = {}
-    gw_enable_bgp = {}
-    gw_sku = {}
-    gw_ip_configuration_name = {}
-    gw_ip_configuration_private_ip_allocation_method = {}
-    gw_ip_configuration_subnet_id = {}
-  }
-  description = "VPN Gateway configuration"
+variable "vnet_suffix" {
+  description = "(Optional) You can use a suffix to add to the list of virtual networks you want to create"
+  type        = string
 }
 
-# Zscaler
-
-
-
-# NSGs
-variable "nsg_config" {
-  type = object({
-    nsg_name = list(string)
-  })
-
-  default = {
-    nsg_name = []
-  }
+variable "networking_object" {
+  description = "(Required) configuration object describing the networking configuration, as described in README"
 }
 
-variable "UntrustSubnet_rules" {
-  default = [
-    {
-    name                       = ""
-    priority                   = 100
-    direction                  = ""
-    access                     = ""
-    protocol                   = ""
-    source_port_range          = ""
-    destination_port_range     = ""
-    source_address_prefix      = ""
-    destination_address_prefix = ""
-    },
-  ]
+variable "nsg_suffix" {
+  description = "(Optional) You can use a suffix to add to the Network Security Groups you want to create"
+  type        = string
 }
 
-variable "TrustedSubnet_rules" {
-  default = [
-    {
-    name                       = ""
-    priority                   = 100
-    direction                  = ""
-    access                     = ""
-    protocol                   = ""
-    source_port_range          = ""
-    destination_port_range     = ""
-    source_address_prefix      = ""
-    destination_address_prefix = ""
-    },
-  ]
+variable "rt_suffix" {
+  description = "(Optional) You can use a suffix to add to the list of Route Tables you want to create"
+  type        = string
 }
 
-variable "InternalSubnet_rules" {
-  default = [
-    {
-    name                       = ""
-    priority                   = 100
-    direction                  = ""
-    access                     = ""
-    protocol                   = ""
-    source_port_range          = ""
-    destination_port_range     = ""
-    source_address_prefix      = ""
-    destination_address_prefix = ""
-    },
-  ]
+variable "log_analytics_object" {
+  description = "(Required) Object describing the configuration of the Log Analytics workspace"
 }
 
-variable "rvdb-sc-ul_rules" {
-  default = [
-    {
-    name                       = ""
-    priority                   = 100
-    direction                  = ""
-    access                     = ""
-    protocol                   = ""
-    source_port_range          = ""
-    destination_port_range     = ""
-    source_address_prefix      = ""
-    destination_address_prefix = ""
-    },
-  ]
+variable "log_analytics_suffix" {
+  description = "(Optional) The suffix added to the Log Analytics workspace name to ensure it is globally unique"
+  type        = string
 }
 
-variable "rvdb-sc-dl_rules" {
-  default = [
-    {
-    name                       = ""
-    priority                   = 100
-    direction                  = ""
-    access                     = ""
-    protocol                   = ""
-    source_port_range          = ""
-    destination_port_range     = ""
-    source_address_prefix      = ""
-    destination_address_prefix = ""
-    },
-  ]
+variable "diagnostics_object" {
+  description = "(Required) configuration object describing the Diagnostics configuration"
 }
+
+# variable "enable_event_hub" {
+#   description = "(Required) Set to true to create an event hub for Diagnostics Logging"
+#   type = bool
+# }

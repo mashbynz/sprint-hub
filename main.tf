@@ -6,6 +6,12 @@ terraform {
 
 provider "azurerm" {
   version = "<= 1.43.0"
+
+# Required if deploying via service principal
+  # subscription_id = var.subscription_id
+  # client_id       = var.client_id
+  # client_secret   = var.client_secret
+  # tenant_id       = var.tenant_id
 }
 
 data "terraform_remote_state" "landingzone_hub" {
@@ -18,33 +24,37 @@ data "terraform_remote_state" "landingzone_hub" {
   }
 }
 
-# module "governance" {
-#   source        = "../tf-mod-governance/"
+module "governance" {
+  source = "../tf-mod-governance/"
 
-# }
+  log_analytics_object = var.log_analytics_object
+  log_analytics_suffix = var.log_analytics_suffix
 
-module "level0" {
-  source = "../tf-mod-levelzero/"
+  diagnostics_object = var.diagnostics_object
+  networking_object  = var.networking_object
 
-  fw_rg_enabled        = var.fw_rg_config.rg_enabled
-  fw_rg_config         = var.fw_rg_config
-  fw_vnet_config       = var.fw_vnet_config
-  fw_subnets           = var.fw_subnets
-  vnetgw_config        = var.vnetgw_config
-  nsg_config           = var.nsg_config
-  UntrustSubnet_rules  = var.UntrustSubnet_rules
-  TrustedSubnet_rules  = var.TrustedSubnet_rules
-  InternalSubnet_rules = var.InternalSubnet_rules
-  rvdb-sc-ul_rules     = var.rvdb-sc-ul_rules
-  rvdb-sc-dl_rules     = var.rvdb-sc-dl_rules
+  level0_NSG      = module.level0_region1.nsgs
+  level0_networks = module.level0_region1.virtual_networks
 }
 
-# module "level1" {
-#   source        = "../tf-mod-levelone/"
+module "level0_region1" {
+  source = "../tf-mod-levelzero/"
 
-# }
+  rg_suffix   = var.rg_suffix
+  vnet_suffix = var.vnet_suffix
+  nsg_suffix  = var.nsg_suffix
+  rt_suffix   = var.rt_suffix
 
-# module "level2" {
-#   source        = "../tf-mod-leveltwo/"
+  networking_object    = var.networking_object
+  resource_groups      = var.resource_groups
+  diagnostics_object   = var.diagnostics_object
+  log_analytics_object = var.log_analytics_object
+}
 
-# }
+module "level1_region1" {
+  source = "../tf-mod-levelone"
+
+  level0_NSG    = module.level0_region1.nsgs
+  level0_subnet = module.level0_region1.subnets
+  level0_rt     = module.level0_region1.route_table_obj
+}
