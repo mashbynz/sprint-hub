@@ -61,18 +61,21 @@ module "level0_region1" {
 module "level1_region1" {
   source = "../tf-mod-levelone"
 
-  level0_NSG    = module.level0_region1.nsgs
-  level0_subnet = module.level0_region1.subnets
-  level0_rt     = module.level0_region1.route_table_obj
-  level0_rg     = module.level0_region1.resource_groups
-  tenant_id     = data.azurerm_client_config.current.tenant_id
-  object_id     = data.azurerm_client_config.current.object_id
+  level0_NSG              = module.level0_region1.nsgs
+  level0_subnet           = module.level0_region1.subnets
+  level0_rt               = module.level0_region1.route_table_obj
+  level0_rg               = module.level0_region1.resource_groups
+  level0_virtual_networks = module.level0_region1.virtual_networks
+  tenant_id               = data.azurerm_client_config.current.tenant_id
+  object_id               = data.azurerm_client_config.current.object_id
 
   rsv_suffix       = var.rsv_suffix
   key_vault_suffix = var.key_vault_suffix
 
-  rsv_object       = var.rsv_object
-  key_vault_object = var.key_vault_object
+  rsv_object        = var.rsv_object
+  key_vault_object  = var.key_vault_object
+  networking_object = var.networking_object
+
 }
 
 module "level2_region1" {
