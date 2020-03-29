@@ -83,6 +83,7 @@ module "level2_region1" {
 
   level0_vnet                 = module.level0_region1.virtual_networks
   level0_subnet               = module.level0_region1.subnets
+  level0_ip_addresses         = module.level0_region1.ip_addresses
   governance_storage_accounts = module.governance.storage_account_obj
 
   vm_suffix      = var.vm_suffix
