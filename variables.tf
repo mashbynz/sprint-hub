@@ -57,3 +57,54 @@ variable "diagnostics_object" {
 #   description = "(Required) Set to true to create an event hub for Diagnostics Logging"
 #   type = bool
 # }
+
+variable "IP_address_object" {
+  description = "(Required) configuration object describing the IP Address configuration"
+}
+
+variable "ip_suffix" {
+  description = "(Optional) You can use a suffix to add to the list of IP Addresses you want to create"
+  type        = string
+}
+
+variable "rsv_suffix" {
+  description = "(Optional) You can use a suffix to add to the list of Recovery Service Vaults you want to create"
+  type        = string
+}
+
+variable "rsv_object" {
+  description = "(Required) configuration object describing the Recovery Service Vault configuration"
+}
+
+variable "key_vault_suffix" {
+  description = "(Optional) You can use a suffix to add to the list of Key Vaults you want to create"
+  type        = string
+}
+
+variable "key_vault_object" {
+  description = "(Required) configuration object describing the Key Vault configuration"
+}
+
+variable "vm_suffix" {
+  description = "(Optional) You can use a suffix to add to the list of Virtual Machines you want to create"
+  type        = string
+}
+
+variable "os_disk_suffix" {
+  description = "(Optional) You can use a suffix to add to the OS Disk of the Virtual Machine you want to create"
+  type        = string
+}
+
+variable "disk_suffix" {
+  description = "(Optional) You can use a suffix to add to the Data Disk(s) of the Virtual Machine you want to create"
+  type        = string
+}
+
+variable "nic_suffix" {
+  description = "(Optional) You can use a suffix to add to the NICs you want to create"
+  type        = string
+}
+
+variable "vm_object" {
+  description = "(Required) configuration object describing the Virtual Machine configuration"
+}
